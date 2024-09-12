@@ -24,58 +24,50 @@ Program to implement the multivariate linear regression model for predicting the
 Developed by: B.NIHITHA RANI 
 RegisterNumber:  212223040131
 */
-import pandas as pd
-data=pd.read_csv("C:/Users/Admin/Desktop/Placement_Data.csv")
-data.head()
-data1=data.copy()
-data1=data1.drop(["sl_no","salary"],axis=1)
-data1.head()
-data1.isnull()
-data1.duplicated().sum()
-from sklearn.preprocessing import LabelEncoder
-le=LabelEncoder()
-data1["gender"]=le.fit_transform(data1["gender"])
-data1["ssc_b"]=le.fit_transform(data1["ssc_b"])   
-data1["hsc_b"]=le.fit_transform(data1["hsc_b"])
-data1["hsc_s"]=le.fit_transform(data1["hsc_s"])
-data1["degree_t"]=le.fit_transform(data1["degree_t"])
-data1["workex"]=le.fit_transform(data1["workex"])
-data1["specialisation"]=le.fit_transform(data1["specialisation"])
-data1["status"]=le.fit_transform(data1["status"])
-data1
-x=data1.iloc[:,:-1]
-x
-y=data1["status"]
-y
-from sklearn.model_selection import train_test_split
-x_train,x_test,y_train,y_test=train_test_split(x,y,test_size=0.2,random_state=0)
-from sklearn.linear_model import LogisticRegression
-lr=LogisticRegression(solver="liblinear")
-lr.fit(x_train,y_train)
-y_pred=lr.predict(x_test)
-y_pred
-from sklearn.metrics import accuracy_score
-accuracy=accuracy_score(y_test,y_pred)
-accuracy
-from sklearn.metrics import classification_report
-classification_report1=classification_report(y_test,y_pred)
-print(classification_report1)
-lr.predict([[1,80,1,90,1,1,90,1,0,85,1,85]])
+import numpy as np 
+from sklearn.datasets import fetch_california_housing 
+from sklearn.linear_model import SGDRegressor 
+from sklearn.multioutput import MultiOutputRegressor 
+from sklearn.model_selection import train_test_split 
+from sklearn.metrics import mean_squared_error 
+from sklearn.preprocessing import StandardScaler
+data=fetch_california_housing()
+X= data.data[:, :3]
+Y = np.column_stack((data.target, data.data[:, 6]))
+x_train, x_test, Y_train,Y_test = train_test_split(X,Y, test_size = 0.2, random_state =42)
+scaler_X=StandardScaler()
+scaler_Y= StandardScaler()
+x_train = scaler_X.fit_transform(x_train)
+x_test = scaler_X.fit_transform(x_test)
+Y_train = scaler_Y.fit_transform(Y_train)
+Y_test = scaler_Y.fit_transform(Y_test)
+sgd=SGDRegressor(max_iter=1000,tol=1e-3)
+multi_output_sgd=MultiOutputRegressor(sgd)
+multi_output_sgd.fit(x_train, Y_train)
+y_pred =multi_output_sgd.predict(x_test)
+y_pred = scaler_Y.inverse_transform(y_pred)
+Y_test = scaler_Y.inverse_transform(Y_test)
+print(y_pred)
+mse = mean_squared_error(Y_test,y_pred)
+print("Mean Squared Error:",mse)
+print("\nPredictions:\n",y_pred[:5])
 ```
 
 ## Output:
 ```
 y_pred
 ```
-![4-1](https://github.com/user-attachments/assets/b9077ea6-8687-4cd6-b394-e3bdd6e8ee9f)
+![6-1](https://github.com/user-attachments/assets/2ec20159-89a2-47cc-ab42-43c1add6ae36)
+
 ```
-print(classification_report1)
+Mean squared error 
 ```
-![4-2](https://github.com/user-attachments/assets/60ff1356-4819-4f0b-8b98-c35b171f9def)
+![6-2](https://github.com/user-attachments/assets/c35ea309-2b26-474b-9261-ec67043526e6)
+
 ```
-lr.predict([[1,80,1,90,1,1,90,1,0,85,1,85]])
+y_prediction
 ```
-![4-3](https://github.com/user-attachments/assets/c8b3c093-c11f-4bd5-ba1e-0c3001fc12f0)
+![6-3](https://github.com/user-attachments/assets/1bf43ec9-f52f-409a-b8e8-bfbc0aaa4760)
 
 
 ## Result:
