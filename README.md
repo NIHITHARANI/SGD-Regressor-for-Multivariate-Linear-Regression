@@ -55,7 +55,7 @@ print("\nPredictions:\n",y_pred[:5])
 
 ## Output:
 ```
-y_pred
+print(y_pred)
 ```
 ![6-1](https://github.com/user-attachments/assets/2ec20159-89a2-47cc-ab42-43c1add6ae36)
 
@@ -65,7 +65,7 @@ Mean squared error
 ![6-2](https://github.com/user-attachments/assets/c35ea309-2b26-474b-9261-ec67043526e6)
 
 ```
-y_prediction
+Predictions:
 ```
 ![6-3](https://github.com/user-attachments/assets/1bf43ec9-f52f-409a-b8e8-bfbc0aaa4760)
 
