@@ -10,12 +10,12 @@ To write a program to predict the price of the house and number of occupants in 
 ## Algorithm:
 ```
 Step-1.Start
-Step-2.Data Preparation
-Step-3.Hypothesis Definition
-Step-4.Cost Function
-Step-5.Parameter Update Rule
-Step-6.Iterative Training
-Step-7.Model Evaluation
+Step-2.Import necessary libraries
+Step-3.Load and preprocess the data (define features and target).
+Step-4.Split the dataset into training and testing sets.
+Step-5.Scale the features using StandardScaler.
+Step-6.Train the SGDRegressor model on the training set.
+Step-7.Evaluate the model on both training and testing sets using MSE or other metrics.
 Step-8.End 
 ```
 ## Program:
